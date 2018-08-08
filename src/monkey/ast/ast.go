@@ -50,6 +50,11 @@ type IntegerLiteral struct {
 	Value int64
 }
 
+type Boolean struct {
+	Token token.Token // The token.TRUE || token.FALSE
+	Value bool
+}
+
 type PrefixExpression struct {
 	Token    token.Token // The prefix token, e.g.: !
 	Operator string
@@ -105,6 +110,10 @@ func (i *Identifier) String() string       { return i.Value }
 func (il *IntegerLiteral) expressionNode()      {}
 func (il *IntegerLiteral) TokenLiteral() string { return il.Token.Literal }
 func (il *IntegerLiteral) String() string       { return il.Token.Literal }
+
+func (b *Boolean) expressionNode()      {}
+func (b *Boolean) TokenLiteral() string { return b.Token.Literal }
+func (b *Boolean) String() string       { return b.Token.Literal }
 
 func (r *ReturnStatement) statementNode()       {}
 func (r *ReturnStatement) TokenLiteral() string { return r.Token.Literal }
