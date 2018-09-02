@@ -51,6 +51,11 @@ type IntegerLiteral struct {
 	Value int64
 }
 
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
 type Boolean struct {
 	Token token.Token // The token.TRUE || token.FALSE
 	Value bool
@@ -135,6 +140,10 @@ func (i *Identifier) String() string       { return i.Value }
 func (il *IntegerLiteral) expressionNode()      {}
 func (il *IntegerLiteral) TokenLiteral() string { return il.Token.Literal }
 func (il *IntegerLiteral) String() string       { return il.Token.Literal }
+
+func (s *StringLiteral) expressionNode()      {}
+func (s *StringLiteral) TokenLiteral() string { return s.Token.Literal }
+func (s *StringLiteral) String() string       { return s.Token.Literal }
 
 func (f *FunctionLiteral) expressionNode()      {}
 func (f *FunctionLiteral) TokenLiteral() string { return f.Token.Literal }
