@@ -16,6 +16,7 @@ const (
 	FUNCTION_OBJ     = "FUNCTION"
 	NULL_OBJ         = "NULL"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
+	BUILTIN_OBJ      = "BUILTIN"
 	ERROR_OBJ        = "ERROR"
 )
 
@@ -51,6 +52,12 @@ type Function struct {
 	Env        *Environment
 }
 
+type BuiltinFunction func(args ...Object) Object
+
+type Builtin struct {
+	Fn BuiltinFunction
+}
+
 type Error struct {
 	Message string
 }
@@ -74,6 +81,9 @@ func (e *Error) Inspect() string  { return "ERROR: " + e.Message }
 
 func (n *Null) Inspect() string  { return "null" }
 func (n *Null) Type() ObjectType { return NULL_OBJ }
+
+func (b *Builtin) Inspect() string  { return "builtin function" }
+func (b *Builtin) Type() ObjectType { return BUILTIN_OBJ }
 
 func NewEnvironment() *Environment {
 	s := make(map[string]Object)
